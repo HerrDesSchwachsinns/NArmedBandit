@@ -21,7 +21,7 @@ public class SimplePlayer implements Player {
         for (; i < games; ++i) {
             exploit();
         }
-        return getMaxRewardIndex();
+        return getBestArmIndex();
     }
 
     private void explore() {
@@ -32,7 +32,7 @@ public class SimplePlayer implements Player {
     private void exploit() {
         double[] probSum = new double[bandit.getNumArms()];
         int sum = sumRewards();
-        if (sum <= 0) {
+        if (sum <= 0) { //prevent division by zero
             explore();
             return;
         }
@@ -52,7 +52,8 @@ public class SimplePlayer implements Player {
 
     }
 
-    private int getMaxRewardIndex() {
+    @Override
+    public int getBestArmIndex() {
         int maxIndex = 0;
         for (int i = 0; i < bandit.getNumArms(); ++i) {
             if (rewards[i] > rewards[maxIndex]) {
