@@ -24,12 +24,12 @@ public class NArmedBandit {
     }
 
     public String toString() {
-        String str = "[ ";
+        StringBuilder sb = new StringBuilder("[ ");
         for (int i = 0; i < numArms; ++i)
-            str += String.format("%.1f", array[i] * 100) + "% ";
-        str += "]";
+            sb.append(String.format("%5.2f%% ", array[i] * 100));
+        sb.append(']');
 
-        return str;
+        return sb.toString();
     }
 
     public int getNumArms() {
