@@ -10,14 +10,12 @@ public class NArmedBandit {
         array = new double[numArms];
 
         rand = new Random();
-
         for (int i = 0; i < numArms; ++i)
             array[i] = rand.nextDouble();
-        // System.out.println(this);
     }
 
     public int play(int n) {
-        if (array[n] > rand.nextDouble())
+        if (rand.nextDouble() < array[n])
             return 1;
         else
             return 0;
