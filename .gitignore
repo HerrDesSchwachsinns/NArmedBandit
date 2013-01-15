@@ -1,0 +1,7 @@
+#vi/vim temp files
+.*.swp
+
+#eclipse project files
+/.classpath
+/.project
+/bin/
