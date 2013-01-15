@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class SimplePlayer {
+public class SimplePlayer implements Player {
     private int[] rewards;
     private Random rand;
     private NArmedBandit bandit;
@@ -11,6 +11,7 @@ public class SimplePlayer {
         this.bandit = bandit;
     }
 
+    @Override
     public int play(int games) {
         int i = 0;
         for (; i < games / 2; ++i) {
@@ -69,6 +70,7 @@ public class SimplePlayer {
         return sum;
     }
 
+    @Override
     public String toString() {
         String str = "[ ";
         for (int i = 0; i < bandit.getNumArms(); ++i)

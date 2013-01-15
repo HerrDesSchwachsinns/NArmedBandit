@@ -8,7 +8,7 @@ public class MachineLearning {
 
         for (i = 1; i <= TOTAL_RUNS; ++i) {
             NArmedBandit bandit = new NArmedBandit(ARMS);
-            SimplePlayer player = new SimplePlayer(bandit);
+            Player player = new SimplePlayer(bandit);
             int best = player.play(1000000);
             if (best == bandit.getBestArmIndex())
                 goodRuns++;
