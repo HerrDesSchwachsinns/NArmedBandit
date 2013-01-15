@@ -6,7 +6,7 @@ public class Player {
     private NArmedBandit bandit;
 
     public Player(NArmedBandit bandit) {
-        rewards = new int[bandit.n()];
+        rewards = new int[bandit.getNumArms()];
         rand = new Random();
         this.bandit = bandit;
     }
@@ -24,12 +24,12 @@ public class Player {
     }
 
     private void explore() {
-        int n = rand.nextInt(bandit.n());
+        int n = rand.nextInt(bandit.getNumArms());
         rewards[n] += bandit.play(n);
     }
 
     private void exploit() {
-        double[] probSum = new double[bandit.n()];
+        double[] probSum = new double[bandit.getNumArms()];
         int sum = sumRewards();
         if (sum <= 0) {
             explore();
@@ -53,7 +53,7 @@ public class Player {
 
     private int getMaxRewardIndex() {
         int maxIndex = 0;
-        for (int i = 0; i < bandit.n(); ++i) {
+        for (int i = 0; i < bandit.getNumArms(); ++i) {
             if (rewards[i] > rewards[maxIndex]) {
                 maxIndex = i;
             }
@@ -71,7 +71,7 @@ public class Player {
 
     public String toString() {
         String str = "[ ";
-        for (int i = 0; i < bandit.n(); ++i)
+        for (int i = 0; i < bandit.getNumArms(); ++i)
             str += rewards[i] + " ";
         str += "]";
 

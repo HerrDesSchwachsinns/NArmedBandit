@@ -1,17 +1,17 @@
 import java.util.Random;
 
 public class NArmedBandit {
-    private int n;
+    private int numArms;
     private double[] array;
     private Random rand;
 
-    public NArmedBandit(int n) {
-        this.n = n;
-        array = new double[n];
+    public NArmedBandit(int numArms) {
+        this.numArms = numArms;
+        array = new double[numArms];
 
         rand = new Random();
 
-        for (int i = 0; i < n; ++i)
+        for (int i = 0; i < numArms; ++i)
             array[i] = rand.nextDouble();
         // System.out.println(this);
     }
@@ -25,20 +25,20 @@ public class NArmedBandit {
 
     public String toString() {
         String str = "[ ";
-        for (int i = 0; i < n; ++i)
+        for (int i = 0; i < numArms; ++i)
             str += String.format("%.1f", array[i] * 100) + "% ";
         str += "]";
 
         return str;
     }
 
-    public int n() {
-        return n;
+    public int getNumArms() {
+        return numArms;
     }
 
     public int getBestArmIndex() {
         int maxIndex = 0;
-        for (int i = 0; i < n; ++i) {
+        for (int i = 0; i < numArms; ++i) {
             if (array[i] > array[maxIndex]) {
                 maxIndex = i;
             }
