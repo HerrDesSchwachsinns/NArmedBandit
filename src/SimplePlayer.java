@@ -1,11 +1,11 @@
 import java.util.Random;
 
-public class Player {
+public class SimplePlayer {
     private int[] rewards;
     private Random rand;
     private NArmedBandit bandit;
 
-    public Player(NArmedBandit bandit) {
+    public SimplePlayer(NArmedBandit bandit) {
         rewards = new int[bandit.getNumArms()];
         rand = new Random();
         this.bandit = bandit;
