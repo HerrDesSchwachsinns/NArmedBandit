@@ -2,14 +2,17 @@ public class MachineLearning {
 
     private static int TOTAL_RUNS = 3000;
     private static int ARMS = 10;
-    private static int ROUNDS = 10000;
-    private static int THREADS = 2;
+    private static int ROUNDS = 100000;
+    private static int THREADS = 4;
     
     private int i = 0;
+    private int goodRuns = 0;
     private boolean done = false;
 
     public static void main(String[] args) {
-        new MachineLearning();
+        long startTime = System.nanoTime();
+        new MachineLearning().run();
+        System.out.printf("Took %.6f seconds",(System.nanoTime() - startTime)*1e-9);
     }
 
     public void printStats(int runs, int goodRuns) {
@@ -34,7 +37,7 @@ public class MachineLearning {
     
     public void run() {
         if (!done) {
-            int k = 0, goodRuns = 0;
+            int k = 0;
             WorkerThread threads[] = new WorkerThread[THREADS];
             
             boolean done = false;
@@ -47,7 +50,7 @@ public class MachineLearning {
                     k++;
                     Thread.sleep(100);
                 } catch (InterruptedException e) {}
-                if (k % 10 == 0) {
+                if (k % 5 == 0) {
                     //printStats(i, goodRuns);
                     printProgress();
                     if (getRunsDone() >= TOTAL_RUNS)
@@ -55,13 +58,20 @@ public class MachineLearning {
                 }
             }
             
-            printStats(getRunsDone(), goodRuns);
+            for (int j = 0; j < THREADS; j++){
+                try {
+                    threads[j].join();
+                } catch (InterruptedException e) {}
+            }
+            
+            printStats(getRunsDone(), getGoodRuns());
         }
     }
     
-    public synchronized int getRunsDone() {
-        return i;
-    }
-    
+    public synchronized int getRunsDone() { return i; }
     public synchronized void incrRunsDone() { i++; }
+    public synchronized int getGoodRuns() { return goodRuns; }
+    public synchronized void incrGoodRuns() { goodRuns++; }
+    
+    public int getTotalRuns() { return TOTAL_RUNS; }
 }
