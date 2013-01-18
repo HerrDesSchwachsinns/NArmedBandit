@@ -6,21 +6,28 @@ public class MachineLearning {
     private static int THREADS = 2;
 
     public static void main(String[] args) {
+        new MachineLearning();
+    }
+
+    public void printStats(int runs, int goodRuns) {
+        double good_runs = goodRuns / (double) runs * 100;
+
+        System.out.print("good/runs: " + goodRuns + "/" + runs + "=");
+        System.out.print(String.format("%.1f", good_runs));
+        System.out.println("%");
+
+    }
+
+    public void printProgress(int runs) {
+        double progress = runs / (double) TOTAL_RUNS * 100;
+        System.out
+                .print("\tprogress: " + String.format("%.1f", progress) + "%");
+        System.out.println();
+    }
+    
+    public MachineLearning() {
         int i, goodRuns = 0;
         WorkerThread threads[] = new WorkerThread[THREADS];
-        //for (int j = 0; j < THREADS; j++)
-
-        /*for (i = 1; i <= TOTAL_RUNS; ++i) {
-            NArmedBandit bandit = new NArmedBandit(ARMS);
-            Player player = new SimplePlayer(bandit);
-            int best = player.play(1000000);
-            if (best == bandit.getBestArmIndex())
-                goodRuns++;
-            if (i % 10 == 0) {
-                printStats(i, goodRuns);
-                printProgress(i);
-            }
-        }*/
         
         i = 1;
         while (i <= TOTAL_RUNS) {
@@ -47,21 +54,5 @@ public class MachineLearning {
         }
         
         printStats(i, goodRuns);
-    }
-
-    public static void printStats(int runs, int goodRuns) {
-        double good_runs = goodRuns / (double) runs * 100;
-
-        System.out.print("good/runs: " + goodRuns + "/" + runs + "=");
-        System.out.print(String.format("%.1f", good_runs));
-        System.out.println("%");
-
-    }
-
-    public static void printProgress(int runs) {
-        double progress = runs / (double) TOTAL_RUNS * 100;
-        System.out
-                .print("\tprogress: " + String.format("%.1f", progress) + "%");
-        System.out.println();
     }
 }
