@@ -14,11 +14,8 @@ public class NArmedBandit {
             array[i] = rand.nextDouble();
     }
 
-    public int play(int n) {
-        if (rand.nextDouble() < array[n])
-            return 1;
-        else
-            return 0;
+    public double play(int n) {
+            return rand.nextGaussian()+array[n];
     }
 
     public String toString() {

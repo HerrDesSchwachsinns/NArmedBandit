@@ -20,7 +20,8 @@ public class WorkerThread extends Thread {
             while (mgr.getRunsDone() < mgr.getTotalRuns()) {
                 mgr.incrRunsDone();
                 bandit = new NArmedBandit(arms);
-                player = new SimplePlayer(bandit);
+                //player = new SimplePlayer(bandit);
+                player = new GreedyPlayer(bandit, 1.0);
                 player.play(rounds);
                 if (player.getBestArmIndex() == bandit.getBestArmIndex())
                     mgr.incrGoodRuns();

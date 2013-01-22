@@ -2,8 +2,8 @@ public class MachineLearning {
 
     private static int TOTAL_RUNS = 3000;
     private static int ARMS = 10;
-    private static int ROUNDS = 100000;
-    private static int THREADS = 4;
+    private static int ROUNDS = 5000;
+    private static int THREADS = 2;
     
     private int i = 0;
     private int goodRuns = 0;
