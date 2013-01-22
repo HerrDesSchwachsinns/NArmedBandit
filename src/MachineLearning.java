@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 public class MachineLearning {
 
     private static int TOTAL_RUNS = 2000;
-    private static int ARMS = 10;
+    private static int ARMS = 50;
     private static int ROUNDS = 1000;
     private static int THREADS = 2;
     
