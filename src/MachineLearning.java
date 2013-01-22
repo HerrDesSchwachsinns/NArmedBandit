@@ -1,13 +1,20 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.util.Arrays;
+
+import javax.swing.JFrame;
+
 public class MachineLearning {
 
-    private static int TOTAL_RUNS = 3000;
+    private static int TOTAL_RUNS = 2000;
     private static int ARMS = 10;
-    private static int ROUNDS = 5000;
+    private static int ROUNDS = 1000;
     private static int THREADS = 2;
     
     private int i = 0;
     private int goodRuns = 0;
     private boolean done = false;
+    private double rewards[];
 
     public static void main(String[] args) {
         long startTime = System.nanoTime();
@@ -32,7 +39,7 @@ public class MachineLearning {
     }
     
     public MachineLearning() {
-        
+        rewards = new double[ROUNDS];
     }
     
     public void run() {
@@ -65,13 +72,48 @@ public class MachineLearning {
             }
             
             printStats(getRunsDone(), getGoodRuns());
+            System.out.println(Arrays.toString(rewards));
+            System.out.println(new NArmedBandit(ARMS).toString());
+            printGraph();
         }
+    }
+    
+    private void printGraph() {
+        JFrame f = new MyFrame("Result");
     }
     
     public synchronized int getRunsDone() { return i; }
     public synchronized void incrRunsDone() { i++; }
     public synchronized int getGoodRuns() { return goodRuns; }
     public synchronized void incrGoodRuns() { goodRuns++; }
+    public synchronized void incrReward(int index, double reward) { rewards[index] += reward; }
     
     public int getTotalRuns() { return TOTAL_RUNS; }
+    
+    private class MyFrame extends JFrame {
+        
+        public MyFrame(String title) {
+            super(title);
+            setVisible(true);
+            setLocation(100, 100);
+            setSize(800, 600);
+            setDefaultCloseOperation(EXIT_ON_CLOSE);
+        }
+        
+        @Override
+        public void paint(Graphics g) {
+            g.clearRect(0, 0, getWidth(), getHeight());
+            g.drawLine(0, getHeight()/2, getWidth(), getHeight()/2);
+            g.drawLine(0, getHeight()/2-100, getWidth(), getHeight()/2-100);
+            int xArr[] = new int[rewards.length];
+            int yArr[] = new int[rewards.length];
+            for (int i = 0; i < rewards.length; i++) {
+                xArr[i] = 10 + (int)(((double)i/ rewards.length) * (getWidth()-10));
+                yArr[i] = getHeight()/2 - (int)(100*(rewards[i]/(double)ROUNDS));
+                
+            }
+            g.setColor(Color.red);
+            g.drawPolyline(xArr, yArr, xArr.length);
+        }
+    }
 }

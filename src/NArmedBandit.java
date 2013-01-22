@@ -11,7 +11,7 @@ public class NArmedBandit {
 
         rand = new Random();
         for (int i = 0; i < numArms; ++i)
-            array[i] = rand.nextDouble();
+            array[i] = rand.nextGaussian();
     }
 
     public double play(int n) {
